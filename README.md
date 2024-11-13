@@ -1,6 +1,7 @@
 # GeneSurfing
-
 Gene Surfing 是用于定向挖掘微生物基因组的功能基因生物信息工作流程，由新疆大学合成生物学实验室基于<u>snakemake</u>开发。方法学内容以及湿实验验证工作即将发表。
+
+![](./Gene-surfing/figure/figure.jpg)
 
 ## GeneSurfing的安装
 
