@@ -1,0 +1,4 @@
+samples_path: SG_reads
+query_path: query_sequence
+unqualified: 10
+read_length: 40
