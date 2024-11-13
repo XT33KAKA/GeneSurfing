@@ -15,25 +15,14 @@ SEQTK_OUT_PATH_list = "seqtk_ls"
 SEQTK_OUT_PATH_gene = "seqtk_gene"
 DBCAN3_OUT_PATH = "dbcan_out"
 METABAT_OUT_PATH = "metabat_out"
-
 SAMPLES = os.listdir(samples_path)
 QUERY_SAMPLES = os.listdir(query_path)
-
 
 onerror:
     print("error!")
 
 onsuccess:
     print("success!")
-
-
-# module fastp_m:
-#     snakefile: "modules/fastp.smk"
-#     config: config
-
-# use rule fastp from fastp_m as my_fastp
-
-
 
 rule all:
     input:
@@ -43,9 +32,6 @@ rule all:
         # expand(MMSEQ2_OUT_PATH + "/{sample}.n.m8",sample = SAMPLES),
         expand(DBCAN3_OUT_PATH + "/{sample}.fasta",sample = SAMPLES),
         expand(METABAT_OUT_PATH + "/{sample}", sample=SAMPLES),
-
-
-
 
 rule fastp:
     input:
@@ -74,7 +60,6 @@ rule fastp:
         "-5 " # enable trimming in 5' ends.
         "-3 " # enable trimming in 3' ends.
         "&> {log}"
-
 
 rule megahit:
     input:
