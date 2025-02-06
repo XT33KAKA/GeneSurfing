@@ -8,7 +8,7 @@ def filterLength(fastaPath, outputPath, logPath, thLength=1000, thCoverage=10):
     滤掉长度低于某个阈值的contigs
     1000是细菌单个基因的平均长度
     覆盖度低于10，说明这条contig很有可能是污染序列，或者这个地方确实是测序深度不够
-    上传基因组到NCBI会帮你检测污染序列，PT34_32被鉴定到2条contigs是污染序列，其覆盖度低于10，其他正常contigs都高于10
+    上传基因组到NCBI会检测污染序列，PT34_32被鉴定到2条contigs是污染序列，其覆盖度低于10，其他正常contigs都高于10
     """
     log_f = open(logPath,"w")
     genomeDir = path.dirname(outputPath)
