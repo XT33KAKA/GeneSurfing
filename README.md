@@ -1,32 +1,126 @@
-# GeneSurfing
-Gene Surfing 是用于定向挖掘微生物基因组的功能基因生物信息工作流程，由新疆大学合成生物学实验室基于<u>snakemake</u>开发。方法学内容以及湿实验验证工作即将发表。
+# GeneSurfing Metagenomics Analysis Pipeline
 
-![](./Gene-surfing/figure/figure.jpg)
+## 📖 Project Overview
 
-## GeneSurfing的安装
+**GeneSurfing** is an efficient and universal tool for the directed mining of microbial metagenomic enzymes
 
-以下步骤介绍如何正确安装使用GeneSurfing。
+![](./figure/figure.jpg)
 
-### Step 1：仓库的克隆
+- **Data Preprocessing**: Quality control with `fastp`  
+- **Assembly**: Contig construction via `MEGAHIT`  
+- **Quality Assessment**: Assembly evaluation using `QUAST`  
+- **Functional Annotation**: Gene prediction with `Prokka`  
+- **Sequence Retrieval**: Homology search through `MMseqs2`  
 
-在计算机或计算机集群上打开命令行界面（CLI）或终端。切换到要安装GeneSurfing的目录。然后，运行以下命令从GitHub克隆本仓库：
+Featuring modular architecture and containerized environments, GeneSurfing ensures:  
+✅ **End-to-end automation** from raw sequencing data to functional insights  
+✅ **Reproducible results** across computing environments  
+✅ **Scalable workflows** for large-scale datasets  
+✅ **Standardized outputs** compatible with downstream analyses  
+
+
+
+## 🛠️ Installation Requirements
+
+### Required Software
+
+- [Python ≥3.8](https://www.python.org/downloads/)
+- [Snakemake ≥7.0](https://snakemake.readthedocs.io/)
+- [Mamba](https://docs.conda.io/en/latest/miniconda.html)
+
+### Environment Setup
 
 ```bash
-git clone https://github.com/XT33KAKA/GeneSurfing.git
+# Clone the repository
+git clone https://github.com/XT33KAKA/genesurfing.git
+cd genesurfing
 ```
 
-### Step 2:  安装依赖项
+```bash
+# Create a conda environment (optional)
+conda create -n genesurfing python=3.8
+conda activate genesurfing
+```
 
-* Conda (package manager)
 
-* Snakemake v.6.17.1 or higher (workflow manager)
 
-  **其他事项：**
+## 🚀 Quick Start
 
-- 为了运行Gene Surfing，需要Conda和snakemakake。
+### Input File Requirements
 
-- Miniconda可以按照[Miniconda文档]（https://docs.conda.io/en/latest/miniconda.html）中的系统说明安装。
+- `query.fasta`: Query sequence file (required)
 
-- 安装Miniconda后，可以按照[Snakemake文档]（https://snakemake.readthedocs.io/en/stable/getting_started/installation.html）中的说明安装Snakemake。当流程通过Conda环境运行时，Gene Surfingl将处理其他依赖项。
+- Sample directory structure:
 
-## GeneSurfing工作流程示意
+- ```
+  samples/
+  ├── sample1/
+  │   ├── sample1.R1.raw.fastq.gz
+  │   └── sample1.R2.raw.fastq.gz
+  ├── sample2/
+  │   ├── sample2.R1.raw.fastq.gz
+  │   └── sample2.R2.raw.fastq.gz
+  ```
+
+  ### Running the Pipeline
+
+  ```bash
+  # Basic run (using the default 1 thread)
+  ./run_GS.py -q query.fasta -s samples/
+  
+  # Using multiple threads (recommended)
+  ./run_GS.py -q query.fasta -s samples/ -c 8
+  
+  # Cluster mode (example)
+  snakemake --profile slurm --config query_path=query.fasta samples_path=samples/
+  ```
+
+  ## ⚙️ Parameter Description
+
+  | Parameter   | Abbreviation | Required | Default | Description                   |
+  | ----------- | ------------ | -------- | ------- | ----------------------------- |
+  | `--query`   | `-q`         | Yes      | None    | Path to the query FASTA file  |
+  | `--samples` | `-s`         | Yes      | None    | Path to the samples directory |
+  | `--cores`   | `-c`         | No       | 1       | Number of CPU cores to use    |
+
+  ## 📂 Output Directory Structure
+
+  ```
+  results/
+  ├── 1.fastp_out/            # Quality controlled data
+  ├── 2.assembly/            # Assembly results
+  ├── 3.assembly_assessment/  # Assembly quality assessment
+  ├── 4.Gene_prokka_annote/   # Gene annotation
+  ├── 5.MMSEQS2_Align_file/   # Sequence alignment results
+  └── 6.Sequence_get/         # Extracted target sequences
+      ├── Extracted_DNA_Sequences
+      ├── Extracted_Protein_Sequences
+      └── Extracted_Sequence_IDs
+  ```
+
+## ⚠️ Common Issues
+
+**Q1: `MissingInputException` error occurs**
+✅ Check if the sample directory structure meets the requirements and ensure the file names are formatted as `{sample}.R1.raw.fastq.gz`.
+
+**Q2: Conda environment creation fails**
+✅ Try using Mamba to speed up dependency resolution:
+
+```bash
+conda install -n base -c conda-forge mamba
+mamba env create -f envs/environment.yaml
+```
+
+## 📜 Version Information
+
+- v1.0.0 (2023-09-15): Initial version release
+- v1.1.0 (2023-10-01): Added multi-threading support
+
+## 📄 License
+
+This project is licensed under the [MIT License](https://xstech.one/LICENSE).
+
+## 📧 Contact Us
+
+For inquiries, please contact:
+[![Email](https://img.shields.io/badge/Email-xt33kaka%40163.com-blue)](mailto:xt33kaka@163.com)v
