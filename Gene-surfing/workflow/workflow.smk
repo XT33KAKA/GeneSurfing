@@ -12,11 +12,9 @@ SAMPLES = os.listdir(sample_path)
 
 onsuccess:
     print("Your pipeline has been completed successfully!")
-    shell('notifyMe -c "snakemake -s workflow/test.smk --use-conda -c 50 -p --stats stats.json" -e "xt33kaka@163.com" -s 0 -t "GeneSurfing"')
     
 onerror:
     print("Your process has encountered an error!")
-    shell('notifyMe -c "snakemake -s workflow/test.smk --use-conda -c 50 -p --stats stats.json" -e "xt33kaka@163.com" -s 1 -t "GeneSurfing"')
 
 rule all:
     input:
