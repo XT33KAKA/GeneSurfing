@@ -1,8 +1,8 @@
-# GeneSurfing Metagenomics Analysis Pipeline
+# GeneSurfing
 
 ## 📖 Project Overview
 
-**GeneSurfing** is an efficient and universal tool for the directed mining of microbial metagenomic enzymes
+**GeneSurfing** is an efficient and universal tool for the directed mining of microbial metagenomic enzymes,according to the query sequence submitted by the user, the corresponding enzymes in the metagenome were mined.
 
 ![](./figure/figure.jpg)
 
@@ -111,10 +111,7 @@ conda install -n base -c conda-forge mamba
 mamba env create -f envs/environment.yaml
 ```
 
-## 📜 Version Information
 
-- v1.0.0 (2023-09-15): Initial version release
-- v1.1.0 (2023-10-01): Added multi-threading support
 
 ## 📄 License
 
@@ -123,4 +120,4 @@ This project is licensed under the [MIT License](https://xstech.one/LICENSE).
 ## 📧 Contact Us
 
 For inquiries, please contact:
-[![Email](https://img.shields.io/badge/Email-xt33kaka%40163.com-blue)](mailto:xt33kaka@163.com)v
+[![Email](https://img.shields.io/badge/Email-xt33kaka%40163.com-blue)](mailto:xt33kaka@163.com)
